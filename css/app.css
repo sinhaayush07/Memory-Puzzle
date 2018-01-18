@@ -109,3 +109,16 @@ h1 {
     cursor: pointer;
 }
 
+ .time{
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    margin-top: 0;
+ }
+
+.time p{
+    display: inline;
+    margin: 0
+}
+
+ 
