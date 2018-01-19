@@ -6,6 +6,7 @@ $(document).ready(function(){
      }
      //$('<div class = "time"><p><time>00:00:00</time></p></div>').insertAfter(".restart");
      $('.stars').children('li').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
+     $('.card').wrap('<div class="container-card"></div>');
 });
 
 /* A list that holds all cards*/
@@ -104,16 +105,27 @@ function startCount (){
 
 var match = 0;
 
+function win(){
+    if(match == 8){
+        results();
+    }
+}
+
 //Checks whether the cards flipped are a match or not
 function matchFunction(){
      if(openCards[0].children[0].className === openCards[1].children[0].className){
         $('.card.open.show').addClass('match');
         openCards.length = 0;
         match+= 1;
+
     }
     else{
         openCards.length = 0;
-        $('.open.show').removeClass('open show');
+        $('.card.open.show').addClass('nomatch');
+        setTimeout(function(){
+            $('.nomatch').removeClass('nomatch')
+            $('.open.show').removeClass('open show');
+        },200)
         clearInterval(matchFunction)
         
     }   
@@ -132,7 +144,7 @@ function logicThing(){
         $(this).toggleClass('open show');
         openCards.push(this);
         disableClick();
-        setTimeout(matchFunction,1000)
+        setTimeout(matchFunction,800)
     }
 
 }
@@ -149,7 +161,7 @@ function stars (){
             $('.stars').children('li').children('i:nth-child(2)').removeClass('fa fa-star-o').addClass('fa fa-star');
         }
 
-    else if(match < 5 && count < 30 && count > 25){
+    else if(match < 5 && match > 0 && count < 30 && count > 25){
         console.log("3rd");
         $('.stars').children('li').children('i:nth-child(1)').removeClass('fa fa-star-o').addClass('fa fa-star');
     }
@@ -159,6 +171,7 @@ function stars (){
     }
 }
 
+//Restarts button functionality
 function restart(){
         count = 0;
         $('.moves').text(count);
@@ -170,12 +183,55 @@ function restart(){
 
 $('.restart').on('click',restart)
 
+function results() {
+    $('#sucess-result').empty();
+   
+    var scoreBoard = `
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+            <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+            <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> </svg>
+        <p class="success"> Congrats !!! </p>
+        <p>
+            <span class="score-titles">Moves:</span>
+            <span class="score-values">${moves}</span>
+            <span class="score-titles">Time:</span>
+            <span class="score-values">${timer.getTimeValues().toString()}</span>
+        </p>
+        <div class="text-center margin-top-2">
+             <div class="star">
+                <i class="fa fa-star fa-3x"></i>    
+             </div>
+             <div class="star">
+                <i class="fa ${ (moves > 23) ? "fa-star-o" : "fa-star"}  fa-3x"></i>    
+             </div>
+            <div class="star">
+                <i class="fa ${ (moves > 14) ? "fa-star-o" : "fa-star"} fa-3x"></i>    
+             </div>
+        </div>
+        <div class="text-center margin-top-2" id="restart">
+            <i class="fa fa-repeat fa-2x"></i>
+          </div>
+    `;
+    $('#game-deck')[0].style.display = "none";
+    $('#sucess-result')[0].style.display = "block";
+    $('#sucess-result').append($(scoreBoard));
+    $('#restart').click(resetGame);
+}
+
+function win(){
+    if(match == 8){
+        alert("congragulations!")
+    }
+}
+
+
 //This function starts game
 function startGame(){
     //timerFunction()
     startCount();
     logicThing.call(this);
     stars();
+    win();
 }
 
 function playGame(){
