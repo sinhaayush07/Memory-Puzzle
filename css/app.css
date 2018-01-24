@@ -120,7 +120,7 @@ h1 {
     margin-top: 0;
  }
 
-.time p{
+.time label{
     display: inline;
     margin: 0
 }
@@ -130,5 +130,5 @@ h1 {
 }
 
 .card.nomatch{
-    background:#D98100!important;
+    background: red!important;
 }
