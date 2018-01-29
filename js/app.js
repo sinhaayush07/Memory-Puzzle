@@ -179,18 +179,25 @@ function timerFunction(){
 }
 
 function stars(){
-    console.log(moves);
+    console.log(match);
     if(match == 8){
         if(moves < 10){
-         $('.stars').find('.fa').removeClass('fa-star-o').addClass('fa-star')
+         $('.stars').find('.fa').removeClass('fa-star-o').addClass('fa-star');
+         console.log("moves < 10")
         }
-        else if(moves >10 && moves <14 ){
+        else if(moves >10 && moves <=14 ){
             $('.stars').find('.fa:nth-child(1)').removeClass('fa-star-o').addClass('fa-star');
-            $('.stars').find('.fa:nth-child(2)').removeClass('fa-star-o').addClass('fa-star')
+            $('.stars').find('.fa:nth-child(2)').removeClass('fa-star-o').addClass('fa-star');
+            $('.stars').find('.fa:nth-child(3)').removeClass('fa-star').addClass('fa-star-o');
+            console.log("moves > 10 < 14")
         }
         else if(moves > 14){
-            $('.stars').find('.fa:nth-child(1)').removeClass('fa-star-o').addClass('fa-star')
+            $('.stars').find('.fa:nth-child(1)').removeClass('fa-star-o').addClass('fa-star');
+            console.log("moves > 14")
         }
+    }
+    else{
+         console.log("no stars yet")
     }
 }
 /**
@@ -204,12 +211,10 @@ function restart(){
     match = 0;
     moves = 0;
     openCards.length = 0;
-    $('.moves').text(`${moves}`)
     totalSeconds = 0;
+    $('.moves').text(`${moves}`)
+    $('.match').on('click',runFunction);
     $('.card').removeClass('open show match');
-    openCards.click(emeb)
-
-    
 }
 
 $('.restart').click(restart);
@@ -226,10 +231,9 @@ function runFunction(){
    if(openCards.length == 0 || openCards.length == 1){
        $(this).addClass('open show');
        openCards.push($(this));
-       console.log(openCards);
+       console.log("inside runFunction openCards: ",openCards,"color:green;");
        compare();
        stars();
-       
    }
  else{
        console.log("you can't do this");
