@@ -62,7 +62,7 @@ let moves = 0;
 let match = 0;
 
 /**
- * 
+ * @description -A move in this code represents two flips of cards or clicks. This function updates moves by 1 after it has passed the comparision test of two cards. 
  */
 function updateMoves(){
    moves+=1;
@@ -70,7 +70,7 @@ function updateMoves(){
 }
 
 /**
- * 
+ * @description - A match represents if two cards have same child elements. Thus after a successful match, match variable is updated.
  */
 function updateMatch(){
     match+=1;
@@ -149,12 +149,16 @@ function compare(){
        }
    }
    else{
-      // console.log("1st time")
+       console.log("1st time")
    }
 }
 
 let gameStart = false
 let totalSeconds = 0;
+
+/**
+ * @description - Timer function is a simple stop watch. Here it is used to display time since user has played his first move.
+ */
 
 function timerFunction(){
    let minutesLabel = document.getElementById("minutes");
@@ -177,36 +181,70 @@ function timerFunction(){
    }
 
 }
+/**
+ * @description -  Stars function provides stars based on no.of moves user played to accomplish 8 matches.
+ */
 
 function stars(){
     console.log(match);
     if(match == 8){
-        if(moves < 10){
+         if(moves < 10){
          $('.stars').find('.fa').removeClass('fa-star-o').addClass('fa-star');
          console.log("moves < 10")
-        }
-        else if(moves >10 && moves <=14 ){
-            $('.stars').find('.fa:nth-child(1)').removeClass('fa-star-o').addClass('fa-star');
-            $('.stars').find('.fa:nth-child(2)').removeClass('fa-star-o').addClass('fa-star');
-            $('.stars').find('.fa:nth-child(3)').removeClass('fa-star').addClass('fa-star-o');
+        } 
+         else if(moves > 10 && moves <= 14){
+            $('.stars').find('li:nth-child(1)').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
+            $('.stars').find('li:nth-child(2)').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
+            
             console.log("moves > 10 < 14")
         }
-        else if(moves > 14){
-            $('.stars').find('.fa:nth-child(1)').removeClass('fa-star-o').addClass('fa-star');
+         else if(moves > 14){
+            $('.stars').find('li:nth-child(1)').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
             console.log("moves > 14")
-        }
+        } 
     }
     else{
          console.log("no stars yet")
     }
 }
 /**
-* @description - Restarts the timer,moves and matches counter when restart button is clicked.
-*/
+ * @description - Score function shows the stars awarded,time he took to complete the game, restart button and a congragulatory text.
+ */
+function score(){
+    if(match ==8){
+        $('.container').append(`<h2>Modal Example</h2>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Congragulations!</h4>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div class = "row">
+                    
+                </div>
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>`);
+        $('#myModal').modal('show')
+    }
+}
 
 /**
- * 
- */
+* @description - Restarts the timer,moves and matches counter when restart button is clicked.
+*/
 function restart(){
     match = 0;
     moves = 0;
@@ -215,6 +253,7 @@ function restart(){
     $('.moves').text(`${moves}`)
     $('.match').on('click',runFunction);
     $('.card').removeClass('open show match');
+    $('.stars').children('li').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
 }
 
 $('.restart').click(restart);
@@ -234,13 +273,13 @@ function runFunction(){
        console.log("inside runFunction openCards: ",openCards,"color:green;");
        compare();
        stars();
+       score();
    }
  else{
        console.log("you can't do this");
        $(this).click(runFunction);
    }
 }
-
 
 function play(){
     $('.card').on('click',runFunction);
