@@ -153,41 +153,16 @@ function compare(){
    }
 }
 
-let gameStart = false
-let totalSeconds = 0;
 
-/**
- * @description - Timer function is a simple stop watch. Here it is used to display time since user has played his first move.
- */
-
-function timerFunction(){
-   let minutesLabel = document.getElementById("minutes");
-   let secondsLabel = document.getElementById("seconds");
-  
-   setInterval(setTime, 1000);
-   function setTime() {
-       ++totalSeconds;
-       secondsLabel.innerHTML = pad(totalSeconds % 60);
-       minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-   }
-
-   function pad(val) {
-       let valString = val + "";
-       if (valString.length < 2) {
-           return "0" + valString;
-       } else {
-           return valString;
-       }
-   }
-
-}
 /**
  * @description -  Stars function provides stars based on no.of moves user played to accomplish 8 matches.
  */
 
 function stars(){
     console.log(match);
+    
     if(match == 8){
+        timerstop();
          if(moves < 10){
          $('.stars').find('.fa').removeClass('fa-star-o').addClass('fa-star');
          console.log("moves < 10")
@@ -212,23 +187,39 @@ function stars(){
  */
 function score(){
     if(match ==8){
-        $('.container').append(`<h2>Modal Example</h2>
+        $('.container').append(`
         <!-- The Modal -->
         <div class="modal fade" id="myModal">
           <div class="modal-dialog">
             <div class="modal-content">
-            
-              <!-- Modal Header -->
-              <div class="modal-header">
+                <!-- Modal Header -->
+                <div class="modal-header">
                 <h4 class="modal-title">Congragulations!</h4>
-              </div>
-              
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div class = "row">
-                    
                 </div>
-              </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <ul class="stars">
+                                <li>
+                                    <i class="fa fa-star-o"></i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-star-o"></i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-star-o"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="moves">${moves}</span> Moves
+                        </div>
+                        <div class="col-md-4">
+                             
+                        </div>
+                    </div>
+                </div>
               
               <!-- Modal footer -->
               <div class="modal-footer">
@@ -239,6 +230,52 @@ function score(){
           </div>
         </div>`);
         $('#myModal').modal('show')
+    }
+}
+let gameStart = false
+let totalSeconds = 0;
+let setTimes;
+
+/**
+ * @description - Timer function is a simple stop watch. Here it is used to display time starting from user's first move.
+ */
+
+function timerFunction(){
+   let minutesLabel = document.getElementById("minutes");
+   let secondsLabel = document.getElementById("seconds");
+  
+   setTimes = setInterval(setTime, 1000);
+   function setTime() {
+       ++totalSeconds;
+       secondsLabel.innerHTML = pad(totalSeconds % 60);
+       minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+   }
+
+   function pad(val) {
+       let valString = val + "";
+       if (valString.length < 2) {
+           return "0" + valString;
+       } else {
+           return valString;
+       }
+   }
+}
+/**
+ * @description - Stops timer counter on being called.
+ */
+
+let timerstop = function(){
+    clearInterval(setTimes);
+    console.log("flow is here")
+}
+
+/**
+ * @description - this function starts the timer counter
+ */
+let startTimer = function(){
+    if(gameStart == false){
+        gameStart = true;
+        timerFunction()
     }
 }
 
@@ -253,19 +290,21 @@ function restart(){
     $('.moves').text(`${moves}`)
     $('.match').on('click',runFunction);
     $('.card').removeClass('open show match');
-    $('.stars').children('li').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
+    $('.stars').children('li').children('i').removeClass('fa fa-star').addClass('fa fa-star-o');
+    $('#minutes').html('00');
+    $('#seconds').html('00');
+    timerstop();
+    gameStart = false;
+    $('.card').click(startTimer); 
 }
-
 $('.restart').click(restart);
+
 /**
 * @description - runFunction starts the game. The click on card should be disabled upon click,and once two cards are clicked, they should be matched. 
 */
 function runFunction(){
    
-   if(gameStart == false){
-       gameStart = true;
-       timerFunction();
-   }
+   startTimer();
    disableClick.call(this);
    if(openCards.length == 0 || openCards.length == 1){
        $(this).addClass('open show');
