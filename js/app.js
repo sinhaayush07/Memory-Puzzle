@@ -244,7 +244,7 @@ let totalSeconds = 0;
 let setTimes;
 
 /**
- * @description - Timer function is a simple stop watch. Here it is used to display time starting from user's first move.
+ * @description - Timer function is a simple stop watch. It is used here to display time starting from user's first move.
  */
 
 function timerFunction(){
