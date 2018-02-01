@@ -1,3 +1,9 @@
-A simple Memory game.
+#Matching Game
 
-it consists of 16 cards. Each card holds a symbol behind is which is revealed when a user clicks on it. If two consecutive cards have a match,the symbol remain on screen otherwise its hidden. The stars are awarded based on the combination of no. of moves and matched
+###How to play the game
+
+- The player has to click on the cards in order them to flip and reveal their symbols.
+- If two consecutives flipped cards symbol are same, it is a match.
+- If a player matches all the pairs within 10 moves,he is awarded with 3 stars.
+- If a player matches all the pairs within 10 to 13 moves, he is awarded with 2 stars.
+- If a player matches all the pairs in greater than 13 moves, he is awarded with 1 star.

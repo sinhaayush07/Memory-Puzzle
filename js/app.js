@@ -34,7 +34,7 @@ function icons (icon,i){
 */
 
 function createCard (cards){
-   //cards = shuffle(cards);
+   cards = shuffle(cards);
        for(let i = 0 ; i < cards.length ; i++){
            icons(cards[i],i+1)
    }
@@ -187,8 +187,9 @@ function stars(){
  */
 function score(){
     if(match ==8){
+        fetchTime();
         timerstop();
-        fetchValues();
+       
         $('.container').append(`
         <!-- The Modal -->
         <div class="modal fade" id="myModal">
@@ -196,7 +197,7 @@ function score(){
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                <h4 class="modal-title">Congragulations!</h4>
+                <h4 class="modal-title">Great Job!</h4>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -218,7 +219,7 @@ function score(){
                             <span class="moves">${moves}</span> Moves
                         </div>
                         <div class="col-md-3">
-                            <div class = "time"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+                            <div class = "time"><label id="minutes">${a}</label>:<label id="seconds">${b}</label></div>
                         </div>
                         <div class="col-md-3">
                             <div class="restart">
@@ -226,11 +227,14 @@ function score(){
                             </div>
                         </div>
                     </div>
+                    <div class="image">
+                    <img src="img/award.png" alt="award">
+                    </div>
                 </div>
               
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
               </div>
               
             </div>
@@ -256,9 +260,11 @@ function timerFunction(){
        ++totalSeconds;
        secondsLabel.innerHTML = pad(totalSeconds % 60);
        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-   }
+       
+      
 
-   function pad(val) {
+   }
+    function pad(val) {
        let valString = val + "";
        if (valString.length < 2) {
            return "0" + valString;
@@ -266,15 +272,18 @@ function timerFunction(){
            return valString;
        }
    }
+  
 }
 
-let secondValue = 0;
-let minuteValue = 0;
-
-function fetchValues(){
-    secondValue = $('#minutes').val();
-    minuteValue = $('#seconds').val();
-    console.log("gand fat gai hai")
+/**
+ * @description - Captures the time when the game is just completed.
+ */
+let a,b;
+function fetchTime(){
+    a = $('#minutes').html();
+    b = $('#seconds').html();
+    console.log(a);
+    console.log(b);
 }
 
 /**
@@ -283,10 +292,6 @@ function fetchValues(){
 
 let timerstop = function(){
     clearInterval(setTimes);
-    console.log("flow is here");
-    
-   
-    
 }
 
 /**
@@ -300,7 +305,7 @@ let startTimer = function(){
 }
 
 /**
-* @description - Restarts the timer,moves and matches counter when restart button is clicked.
+* @description - A function to reset all the values when a player hits restart.
 */
 function restart(){
     match = 0;
@@ -321,7 +326,7 @@ function restart(){
 $('.restart').click(restart);
 
 /**
-* @description - runFunction starts the game. The click on card should be disabled upon click,and once two cards are clicked, they should be matched. 
+* @description - runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match. 
 */
 function runFunction(){
    
@@ -343,6 +348,7 @@ function runFunction(){
    }
 }
 
+//function that handles the click of the card.
 function play(){
     $('.card').on('click',runFunction);
     

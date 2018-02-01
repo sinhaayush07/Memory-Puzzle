@@ -140,3 +140,11 @@ h1 {
 .modal-body .stars li{
     list-style: none;
 }
+
+.modal-body .restart {
+    cursor: pointer;
+}
+
+.image img{
+    margin:0 auto;
+}
