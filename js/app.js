@@ -162,7 +162,7 @@ function stars(){
     console.log(match);
     
     if(match == 8){
-        timerstop();
+       
          if(moves < 10){
          $('.stars').find('.fa').removeClass('fa-star-o').addClass('fa-star');
          console.log("moves < 10")
@@ -187,6 +187,8 @@ function stars(){
  */
 function score(){
     if(match ==8){
+        timerstop();
+        fetchValues();
         $('.container').append(`
         <!-- The Modal -->
         <div class="modal fade" id="myModal">
@@ -199,7 +201,7 @@ function score(){
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <ul class="stars">
                                 <li>
                                     <i class="fa fa-star-o"></i>
@@ -212,11 +214,16 @@ function score(){
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <span class="moves">${moves}</span> Moves
                         </div>
-                        <div class="col-md-4">
-                             
+                        <div class="col-md-3">
+                            <div class = "time"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="restart">
+                                <i class="fa fa-repeat"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -260,13 +267,26 @@ function timerFunction(){
        }
    }
 }
+
+let secondValue = 0;
+let minuteValue = 0;
+
+function fetchValues(){
+    secondValue = $('#minutes').val();
+    minuteValue = $('#seconds').val();
+    console.log("gand fat gai hai")
+}
+
 /**
  * @description - Stops timer counter on being called.
  */
 
 let timerstop = function(){
     clearInterval(setTimes);
-    console.log("flow is here")
+    console.log("flow is here");
+    
+   
+    
 }
 
 /**
@@ -294,6 +314,7 @@ function restart(){
     $('#minutes').html('00');
     $('#seconds').html('00');
     timerstop();
+    
     gameStart = false;
     $('.card').click(startTimer); 
 }
@@ -311,8 +332,10 @@ function runFunction(){
        openCards.push($(this));
        console.log("inside runFunction openCards: ",openCards,"color:green;");
        compare();
-       stars();
+       
        score();
+       stars();
+       $('.modal .restart').on('click',restart);
    }
  else{
        console.log("you can't do this");
@@ -322,6 +345,7 @@ function runFunction(){
 
 function play(){
     $('.card').on('click',runFunction);
+    
 }
 
 play();

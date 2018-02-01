@@ -132,3 +132,11 @@ h1 {
 .card.nomatch{
     background: red!important;
 }
+
+.modal-body .stars{
+    display: flex;
+}
+
+.modal-body .stars li{
+    list-style: none;
+}
