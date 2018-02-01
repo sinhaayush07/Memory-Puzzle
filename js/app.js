@@ -34,7 +34,7 @@ function icons (icon,i){
 */
 
 function createCard (cards){
-   //cards = shuffle(cards);
+   cards = shuffle(cards);
        for(let i = 0 ; i < cards.length ; i++){
            icons(cards[i],i+1)
    }
@@ -305,7 +305,7 @@ let startTimer = function(){
 }
 
 /**
-* @description - Restarts the timer,moves and matches counter when restart button is clicked.
+* @description - A function to reset all the values when a player hits restart.
 */
 function restart(){
     match = 0;
@@ -326,7 +326,7 @@ function restart(){
 $('.restart').click(restart);
 
 /**
-* @description - runFunction starts the game. The click on card should be disabled upon click,and once two cards are clicked, they should be matched. 
+* @description - runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match. 
 */
 function runFunction(){
    
@@ -348,6 +348,7 @@ function runFunction(){
    }
 }
 
+//function that handles the click of the card.
 function play(){
     $('.card').on('click',runFunction);
     
