@@ -140,3 +140,7 @@ h1 {
 .modal-body .stars li{
     list-style: none;
 }
+
+.image img{
+    margin:0 auto;
+}
