@@ -34,7 +34,7 @@ function icons (icon,i){
 */
 
 function createCard (cards){
-   //cards = shuffle(cards);
+   cards = shuffle(cards);
        for(let i = 0 ; i < cards.length ; i++){
            icons(cards[i],i+1)
    }
