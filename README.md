@@ -1,6 +1,6 @@
-#Matching Game
+# Matching Game
 
-###How to play the game
+### How to play the game
 
 - The player has to click on the cards in order them to flip and reveal their symbols.
 - If two consecutives flipped cards symbol are same, it is a match.

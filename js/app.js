@@ -2,10 +2,10 @@
 $(document).ready(function(){
     if($('.deck').children('.card')){
        $('.deck').children('.card').removeClass('match');
-       $('.deck').children(".card").removeClass('open show') 
+       $('.deck').children(".card").removeClass('open show')
     }
     $('<div class = "time"><label id="minutes">00</label>:<label id="seconds">00</label></div>').insertAfter(".restart");
-    $('.stars').children('li').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
+    $('.stars').children('li').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
     $('.card').wrap('<div class="container-card"></div>');
 });
 
@@ -16,10 +16,10 @@ let cardList = ["fa fa-diamond","fa fa-paper-plane-o","fa fa-anchor","fa fa-bolt
 $(".card").children("i").remove();
 
 
-/** 
+/**
 * @description - Assign icons to the cards, based upon the cards index
 * @param {string} icon - the icons that have to be revealed upom clicking a card.
-* @param {number} i - the index at where the icon has to be placed  
+* @param {number} i - the index at where the icon has to be placed
 */
 
 function icons (icon,i){
@@ -30,20 +30,20 @@ function icons (icon,i){
 /**
 * @class - Creates deck with 16 cards with icons at the back of each card.
 * @description Creates cards with shuffled icons at the time of load.
-* @param {string} cards - the icons that have to be revealed upom clicking a card. 
+* @param {string} cards - the icons that have to be revealed upom clicking a card.
 */
 
 function createCard (cards){
-   cards = shuffle(cards);
+   //cards = shuffle(cards);
        for(let i = 0 ; i < cards.length ; i++){
            icons(cards[i],i+1)
    }
-} 
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
    let currentIndex = array.length, temporaryValue, randomIndex;
-   while (currentIndex !== 0) { 
+   while (currentIndex !== 0) {
        randomIndex = Math.floor(Math.random() * currentIndex);
        currentIndex -= 1;
        temporaryValue = array[currentIndex];
@@ -62,7 +62,7 @@ let moves = 0;
 let match = 0;
 
 /**
- * @description -A move in this code represents two flips of cards or clicks. This function updates moves by 1 after it has passed the comparision test of two cards. 
+ * @description -A move in this code represents two flips of cards or clicks. This function updates moves by 1 after it has passed the comparision test of two cards.
  */
 function updateMoves(){
    moves+=1;
@@ -84,10 +84,10 @@ function areAMatch(cards){
    //console.log(cards);
    for(let i = 0 ; i < cards.length ; i++){
        setTimeout(() =>{
-           cards[i][0].className+= ' ' + 'match' 
+           cards[i][0].className+= ' ' + 'match'
        },300);
-       
-      
+
+
    }
 }
 /**
@@ -99,12 +99,12 @@ function areNotAMatch(cards){
    for(let i = 0 ; i < cards.length ; i++){
        setTimeout(() => {
            cards[i][0].classList.remove('open','show')
-       }, 800); 
+       }, 800);
    }
 }
 
 /**
-* @description - Removes the 'click' eventListner when a card is clicked - 
+* @description - Removes the 'click' eventListner when a card is clicked -
 */
 function disableClick(){
 
@@ -121,7 +121,7 @@ function enableClick(clickedCards){
    }
 }
 /**
-* @description  -compares the two cards. If two cards are a match, a class match is added to both the elements otherwise two classes 'open' & 'show' are removed from the child elements. 
+* @description  -compares the two cards. If two cards are a match, a class match is added to both the elements otherwise two classes 'open' & 'show' are removed from the child elements.
 */
 
 function compare(){
@@ -133,8 +133,8 @@ function compare(){
                openCards.length = 0;
            },500);
            updateMoves();
-           updateMatch() 
-           
+           updateMatch()
+
        }
        else{
           // console.log("not same");
@@ -160,26 +160,17 @@ function compare(){
 
 function stars(){
     console.log(match);
-    
-    if(match == 8){
-       
-         if(moves < 10){
-         $('.stars').find('.fa').removeClass('fa-star-o').addClass('fa-star');
-         console.log("moves < 10")
-        } 
-         else if(moves > 10 && moves <= 14){
-            $('.stars').find('li:nth-child(1)').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
-            $('.stars').find('li:nth-child(2)').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
-            
-            console.log("moves > 10 < 14")
+      if(moves > 10 && moves <= 14 && match > 4 && match <= 8){
+            $('.stars').find('li:nth-child(3)').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
+
         }
-         else if(moves > 14){
-            $('.stars').find('li:nth-child(1)').children('i').removeClass('fa fa-star-o').addClass('fa fa-star')
-            console.log("moves > 14")
-        } 
-    }
-    else{
-         console.log("no stars yet")
+     else if(moves > 14 && match > 4 && match <= 8){
+            $('.stars').find('li:nth-child(2)').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
+            $('.stars').find('li:nth-child(3)').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
+        }
+
+        else{
+          console.log("no stars yet")
     }
 }
 /**
@@ -189,7 +180,7 @@ function score(){
     if(match ==8){
         fetchTime();
         timerstop();
-       
+
         $('.container').append(`
         <!-- The Modal -->
         <div class="modal fade" id="myModal">
@@ -205,13 +196,13 @@ function score(){
                         <div class="col-md-3">
                             <ul class="stars">
                                 <li>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star"></i>
                                 </li>
                                 <li>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star"></i>
                                 </li>
                                 <li>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star"></i>
                                 </li>
                             </ul>
                         </div>
@@ -231,12 +222,12 @@ function score(){
                     <img src="img/award.png" alt="award">
                     </div>
                 </div>
-              
+
               <!-- Modal footer -->
               <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Continue</button>
               </div>
-              
+
             </div>
           </div>
         </div>`);
@@ -254,14 +245,14 @@ let setTimes;
 function timerFunction(){
    let minutesLabel = document.getElementById("minutes");
    let secondsLabel = document.getElementById("seconds");
-  
+
    setTimes = setInterval(setTime, 1000);
    function setTime() {
        ++totalSeconds;
        secondsLabel.innerHTML = pad(totalSeconds % 60);
        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-       
-      
+
+
 
    }
     function pad(val) {
@@ -272,7 +263,7 @@ function timerFunction(){
            return valString;
        }
    }
-  
+
 }
 
 /**
@@ -315,21 +306,21 @@ function restart(){
     $('.moves').text(`${moves}`)
     $('.match').on('click',runFunction);
     $('.card').removeClass('open show match');
-    $('.stars').children('li').children('i').removeClass('fa fa-star').addClass('fa fa-star-o');
+    $('.stars').children('li').children('i').removeClass('fa fa-star-o').addClass('fa fa-star');
     $('#minutes').html('00');
     $('#seconds').html('00');
     timerstop();
-    
+    a=0;b=0;
     gameStart = false;
-    $('.card').click(startTimer); 
+    $('.card').click(startTimer);
 }
 $('.restart').click(restart);
 
 /**
-* @description - runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match. 
+* @description - runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match.
 */
 function runFunction(){
-   
+
    startTimer();
    disableClick.call(this);
    if(openCards.length == 0 || openCards.length == 1){
@@ -337,7 +328,7 @@ function runFunction(){
        openCards.push($(this));
        console.log("inside runFunction openCards: ",openCards,"color:green;");
        compare();
-       
+
        score();
        stars();
        $('.modal .restart').on('click',restart);
@@ -351,7 +342,7 @@ function runFunction(){
 //function that handles the click of the card.
 function play(){
     $('.card').on('click',runFunction);
-    
+
 }
 
 play();
