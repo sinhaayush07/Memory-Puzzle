@@ -17,28 +17,31 @@ $(".card").children("i").remove();
 
 
 /**
-* @description - Assign icons to the cards, based upon the cards index
+*  - Assign icons to the cards, based upon the cards index
 * @param {string} icon - the icons that have to be revealed upom clicking a card.
 * @param {number} i - the index at where the icon has to be placed
 */
 
 function icons (icon,i){
-   $(".card:nth-child("+i+")").append(`<i class = "${icon}"></i>`)
+    $(".card:nth-child("+i+")").append(`<i class = "${icon}"></i>`)
 }
 
 //Shuffles and loops through each card and creates it HTML
 /**
 * @class - Creates deck with 16 cards with icons at the back of each card.
-* @description Creates cards with shuffled icons at the time of load.
+*  Creates cards with shuffled icons at the time of load.
 * @param {string} cards - the icons that have to be revealed upom clicking a card.
 */
 
-function createCard (cards){
+var g = function createCard (cards){
    cards = shuffle(cards);
+   console.log(cards);
        for(let i = 0 ; i < cards.length ; i++){
            icons(cards[i],i+1)
+           console.log("this is inside icons")
    }
 }
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -53,7 +56,9 @@ function shuffle(array) {
    return array;
 }
 
-let deck = new createCard(cardList);
+//let deck = new createCard(cardList);
+
+g(cardList);
 
 //An array that holds flipped cards
 let openCards = [];
@@ -62,7 +67,7 @@ let moves = 0;
 let match = 0;
 
 /**
- * @description -A move in this code represents two flips of cards or clicks. This function updates moves by 1 after it has passed the comparision test of two cards.
+ *  -A move in this code represents two flips of cards or clicks. This function updates moves by 1 after it has passed the comparision test of two cards.
  */
 function updateMoves(){
    moves+=1;
@@ -70,14 +75,14 @@ function updateMoves(){
 }
 
 /**
- * @description - A match represents if two cards have same child elements. Thus after a successful match, match variable is updated.
+ * - A match represents if two cards have same child elements. Thus after a successful match, match variable is updated.
  */
 function updateMatch(){
     match+=1;
 }
 
 /**
-* @description - A function that adds a class "match" to all the elements of the array if the classnames are same
+*  - A function that adds a class "match" to all the elements of the array if the classnames are same
 * @param {*} cards - Array containing child elements on which a class has to be added
 */
 function areAMatch(cards){
@@ -91,7 +96,7 @@ function areAMatch(cards){
    }
 }
 /**
-* @description - A function to removes a specific set of classes to all child elements of an array if the names of the classes of the elements are different
+*  - A function to removes a specific set of classes to all child elements of an array if the names of the classes of the elements are different
 * @param {*} cards - Array containing child elements on which a classes has to be removed
 */
 
@@ -104,7 +109,7 @@ function areNotAMatch(cards){
 }
 
 /**
-* @description - Removes the 'click' eventListner when a card is clicked -
+*  - Removes the 'click' eventListner when a card is clicked -
 */
 function disableClick(){
 
@@ -112,7 +117,7 @@ function disableClick(){
 }
 
 /**
-* @description - Adds a 'click' eventListner when the flipped cards are not a match so that user can flip this next time to match with a different card.
+*  - Adds a 'click' eventListner when the flipped cards are not a match so that user can flip this next time to match with a different card.
 * @param {*} clickedCards - An array that consist of clicked cards and click eventListner has been set off on the child elements.
 */
 function enableClick(clickedCards){
@@ -121,45 +126,44 @@ function enableClick(clickedCards){
    }
 }
 /**
-* @description  -compares the two cards. If two cards are a match, a class match is added to both the elements otherwise two classes 'open' & 'show' are removed from the child elements.
+*   -compares the two cards. If two cards are a match, a class match is added to both the elements otherwise two classes 'open' & 'show' are removed from the child elements.
 */
 
 function compare(){
-   if(openCards.length == 2){
-       //console.log(openCards[0][0].children[0].className)
-       if(openCards[0][0].children[0].className == openCards[1][0].children[0].className){
-           areAMatch(openCards);
-           setTimeout(()=>{
-               openCards.length = 0;
-           },500);
-           updateMoves();
-           updateMatch()
+    if(openCards.length == 2){
 
-       }
-       else{
-          // console.log("not same");
-           areNotAMatch(openCards);
-           setTimeout(() =>{
-               enableClick(openCards);
-           },600)
-           setTimeout(() =>{
-               openCards.length = 0
-           },1000) ;
-           updateMoves();
-       }
+        if(openCards[0][0].children[0].className == openCards[1][0].children[0].className){
+            areAMatch(openCards);
+            setTimeout(function(){
+                openCards.length = 0;
+            },500);
+            updateMoves();
+            updateMatch()
+
+        }
+        else{
+            //console.log("not same");
+            areNotAMatch(openCards);
+            setTimeout(function(){
+                enableClick(openCards);
+            },600)
+            setTimeout(function(){
+                openCards.length = 0
+            },1000) ;
+            updateMoves();
+        }
    }
    else{
-       console.log("1st time")
    }
 }
 
 
 /**
- * @description -  Stars function provides stars based on no.of moves user played to accomplish 8 matches.
+ *  -  Stars function provides stars based on no.of moves user played to accomplish 8 matches.
  */
 
 function stars(){
-    console.log(match);
+   // console.log(match);
       if(moves > 10 && moves <= 14 && match > 4 && match <= 8){
             $('.stars').find('li:nth-child(3)').children('i').removeClass('fa fa-star').addClass('fa fa-star-o')
 
@@ -170,11 +174,11 @@ function stars(){
         }
 
         else{
-          console.log("no stars yet")
+          //console.log("no stars yet")
     }
 }
 /**
- * @description - Score function shows the stars awarded,time he took to complete the game, restart button and a congragulatory text.
+ *  - Score function shows the stars awarded,time he took to complete the game, restart button and a congragulatory text.
  */
 function score(){
     if(match ==8){
@@ -239,7 +243,7 @@ let totalSeconds = 0;
 let setTimes;
 
 /**
- * @description - Timer function is a simple stop watch. It is used here to display time starting from user's first move.
+ *  - Timer function is a simple stop watch. It is used here to display time starting from user's first move.
  */
 
 function timerFunction(){
@@ -267,18 +271,16 @@ function timerFunction(){
 }
 
 /**
- * @description - Captures the time when the game is just completed.
+ *  - Captures the time when the game is just completed.
  */
 let a,b;
 function fetchTime(){
     a = $('#minutes').html();
     b = $('#seconds').html();
-    console.log(a);
-    console.log(b);
 }
 
 /**
- * @description - Stops timer counter on being called.
+ *  - Stops timer counter on being called.
  */
 
 let timerstop = function(){
@@ -286,7 +288,7 @@ let timerstop = function(){
 }
 
 /**
- * @description - this function starts the timer counter
+ *  - this function starts the timer counter
  */
 let startTimer = function(){
     if(gameStart == false){
@@ -296,45 +298,29 @@ let startTimer = function(){
 }
 
 /**
-* @description - A function to reset all the values when a player hits restart.
+*  - A function to reset all the values when a player hits restart.
 */
 function restart(){
-    match = 0;
-    moves = 0;
-    openCards.length = 0;
-    totalSeconds = 0;
-    $('.moves').text(`${moves}`)
-    $('.match').on('click',runFunction);
-    $('.card').removeClass('open show match');
-    $('.stars').children('li').children('i').removeClass('fa fa-star-o').addClass('fa fa-star');
-    $('#minutes').html('00');
-    $('#seconds').html('00');
-    timerstop();
-    a=0;b=0;
-    gameStart = false;
-    $('.card').click(startTimer);
+ 
+    location.reload();
 }
 $('.restart').click(restart);
-
+$('.modal .restart').on('click',restart);
 /**
-* @description - runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match.
+*  runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match.
 */
 function runFunction(){
-
    startTimer();
    disableClick.call(this);
    if(openCards.length == 0 || openCards.length == 1){
        $(this).addClass('open show');
        openCards.push($(this));
-       console.log("inside runFunction openCards: ",openCards,"color:green;");
        compare();
-
        score();
        stars();
-       $('.modal .restart').on('click',restart);
+     
    }
  else{
-       console.log("you can't do this");
        $(this).click(runFunction);
    }
 }
@@ -342,7 +328,6 @@ function runFunction(){
 //function that handles the click of the card.
 function play(){
     $('.card').on('click',runFunction);
-
 }
 
 play();
