@@ -44,6 +44,7 @@ var g = function createCard (cards){
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+
 function shuffle(array) {
    let currentIndex = array.length, temporaryValue, randomIndex;
    while (currentIndex !== 0) {
@@ -69,6 +70,7 @@ let match = 0;
 /**
  *  -A move in this code represents two flips of cards or clicks. This function updates moves by 1 after it has passed the comparision test of two cards.
  */
+
 function updateMoves(){
    moves+=1;
    $('.moves').text(`${moves}`)
@@ -77,6 +79,7 @@ function updateMoves(){
 /**
  * - A match represents if two cards have same child elements. Thus after a successful match, match variable is updated.
  */
+
 function updateMatch(){
     match+=1;
 }
@@ -85,6 +88,7 @@ function updateMatch(){
 *  - A function that adds a class "match" to all the elements of the array if the classnames are same
 * @param {*} cards - Array containing child elements on which a class has to be added
 */
+
 function areAMatch(cards){
    //console.log(cards);
    for(let i = 0 ; i < cards.length ; i++){
@@ -95,6 +99,7 @@ function areAMatch(cards){
 
    }
 }
+
 /**
 *  - A function to removes a specific set of classes to all child elements of an array if the names of the classes of the elements are different
 * @param {*} cards - Array containing child elements on which a classes has to be removed
@@ -111,6 +116,7 @@ function areNotAMatch(cards){
 /**
 *  - Removes the 'click' eventListner when a card is clicked -
 */
+
 function disableClick(){
 
    $(this).off('click');
@@ -120,6 +126,7 @@ function disableClick(){
 *  - Adds a 'click' eventListner when the flipped cards are not a match so that user can flip this next time to match with a different card.
 * @param {*} clickedCards - An array that consist of clicked cards and click eventListner has been set off on the child elements.
 */
+
 function enableClick(clickedCards){
    for(let i = 0 ; i < clickedCards.length ; i++){
        clickedCards[i].click(runFunction);
@@ -273,6 +280,7 @@ function timerFunction(){
 /**
  *  - Captures the time when the game is just completed.
  */
+
 let a,b;
 function fetchTime(){
     a = $('#minutes').html();
@@ -290,6 +298,7 @@ let timerstop = function(){
 /**
  *  - this function starts the timer counter
  */
+
 let startTimer = function(){
     if(gameStart == false){
         gameStart = true;
@@ -300,6 +309,7 @@ let startTimer = function(){
 /**
 *  - A function to reset all the values when a player hits restart.
 */
+
 function restart(){
  
     location.reload();
@@ -309,6 +319,7 @@ $('.modal .restart').on('click',restart);
 /**
 *  runFunction starts the game. The clicked card should be disabled upon click,and once two cards are clicked, they should be compared for a match.
 */
+
 function runFunction(){
    startTimer();
    disableClick.call(this);
