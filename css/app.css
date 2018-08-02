@@ -78,6 +78,7 @@ h1 {
 
 .deck .card.show {
     font-size: 33px;
+    display: flex !important;
 }
 
 .deck .card.match {
@@ -148,3 +149,4 @@ h1 {
 .image img{
     margin:0 27%;
 }
+

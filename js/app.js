@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 
 /* A list that holds all cards*/
-let cardList = ["fa fa-diamond","fa fa-paper-plane-o","fa fa-anchor","fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bicycle","fa fa-bomb" ,"fa fa-diamond","fa fa-paper-plane-o","fa fa-anchor","fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bicycle","fa fa-bomb"];
+let cardList = ["fas fa-gem","fas fa-paper-plane","fa fa-anchor","fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bicycle","fa fa-bomb" ,"fas fa-gem","fas fa-paper-plane","fa fa-anchor","fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bicycle","fa fa-bomb"];
 
 //Remove all the child elements from the card to reshuffle the symbols every time page loads
 $(".card").children("i").remove();
