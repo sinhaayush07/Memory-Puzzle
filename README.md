@@ -9,4 +9,4 @@
 - If a player matches all the pairs in greater than 13 moves, he is awarded with 1 star.
 
 ### Live Link
-https://livingthedream93.github.io/Memory-Puzzle/
+[https://sinhaayush07.github.io/Memory-Puzzle/](https://sinhaayush07.github.io/Memory-Puzzle/)
